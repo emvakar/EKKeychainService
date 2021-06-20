@@ -1,7 +1,8 @@
 language: swift
-osx_image: xcode11.4
+osx_image: xcode12.5
 notifications:
-  slack: eskaria:RRTsJOW40z95SajyTLBy7lxy
+  slack:
+    secure: KMQ+Nh4jIsB3Zl4+rdyYbE7AEb5Rt9Pk6D8SPtlHoSo85fDenJ8SjwuZJCOtgC79uVSKm5qgFaaOMr1lcwLS+Z+JwXb3/heR5JEZ8bLsWmSg0mKW2PazOqAb/y8Ih+NT3/2W8z07ip3A64tNYgibdrE+ad6+Lur16jx/+HoZTAaMaSoO30LoCAcGFf0f19fE39CWyxLaK0z6XE+jPCB52qyzw5XtjYqlD0t9i2hdJaoScmy+3uPNFkBbUKARNdALXPP5R6suYPO+yQyRbQZSDP24mBJEISrsxzW7odClJfUTYCMS2/ORqywNqeDyENiOMXqs2Mt6F7+djkZ+S3/pY8DzG22ZFscBb+xiwo5Ot9W8JqClgoVcZZpo419mYkyRy34dJcjGh5NLsNJTpeYKbpTq3+eq8Lfq0QcmS/vMtYZb5AlCTqAZYoDsa9Y98p646x5q0gRcnhnZvJfRpqYUutZjAgNQsvAQO4bS0aMS+BQLtubUhcX3QnrdxdW1hD1vUWmbAY8NrqmqJ7XuiEwYdhkVztXbdtBgqztfc5yR2CTVro1s/ZNHph5B7W4RnhKBQnQseXjXGNo04wOs5TGv3zS3LDNXz1L/tdDb9xPve5mvJq12NRnTT8ZvpthXdQh6cZ4GNhA8mdS0vW1IHOR5eLG60dywCkUPVvXg9tgP5e0=
 script:
-  - swift build
-  - swift test
+- swift build
+- swift test
