@@ -1,0 +1,17 @@
+tests_dev_task:
+  name: Unit Tests develop
+  osx_instance:
+    image: big-sur-xcode-12.5
+  only_if:
+    $CIRRUS_BASE_BRANCH == "develop"
+  script: 
+    - swift build && swift test
+
+tests_main_task:
+  name: Unit Tests main
+  osx_instance:
+    image: big-sur-xcode-12.5
+  only_if:
+    $CIRRUS_BASE_BRANCH == "main"
+  script: 
+    - swift build && swift test
