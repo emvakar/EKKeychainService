@@ -70,4 +70,7 @@ extension EKKeychainService {
         keychain.delete(key.description)
     }
 
+    public func removeObjects(withKey keys: EKFieldKey...) {
+        keys.forEach { keychain.delete($0.description) }
+    }
 }
