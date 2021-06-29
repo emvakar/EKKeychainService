@@ -15,46 +15,52 @@ final class EKKeychainServiceTests: XCTestCase {
     let dataValue = "test".data(using: .utf8)
 
     func test1_stringValue() throws {
-        EKKeychainService.shared.set(stringValue, withKey: .test1)
+        try EKKeychainService.shared.set(stringValue, withKey: .test1)
 
-        let value = EKKeychainService.shared.getString(withKey: .test1)
+        let value: String = try EKKeychainService.shared.get(by: .test1)
         XCTAssert(value == stringValue)
     }
 
     func test2_boolValue() throws {
-        EKKeychainService.shared.set(boolValue, withKey: .bool)
+        try EKKeychainService.shared.set(boolValue, withKey: .bool)
 
-        let value = EKKeychainService.shared.getBool(withKey: .bool)
+        let value: Bool = try EKKeychainService.shared.get(by: .bool)
         XCTAssert(value == boolValue)
     }
 
     func test3_dataValue() throws {
-        EKKeychainService.shared.set(dataValue, withKey: .data)
+        try EKKeychainService.shared.set(dataValue, withKey: .data)
 
-        let value = EKKeychainService.shared.getData(withKey: .data)
+        let value: Data = try EKKeychainService.shared.get(by: .data)
         XCTAssert(value == dataValue)
     }
 
     func test4_removeValue() throws {
-        let value = EKKeychainService.shared.getString(withKey: .test1)
+        let value: String = try EKKeychainService.shared.get(by: .test1)
+        
         XCTAssert(value == stringValue)
         EKKeychainService.shared.removeObject(withKey: .test1)
-        let clearedValue = EKKeychainService.shared.getString(withKey: .test1)
-        XCTAssertNil(clearedValue)
+        
+        do {
+            let _: String = try EKKeychainService.shared.get(by: .test1)
+        } catch {
+            XCTAssertEqual(
+                error as! EKKeychainService.EKKeychainError,
+                EKKeychainService.EKKeychainError.getEmpty
+            )
+        }
     }
 
     func test5_removeSomeValues() throws {
-        EKKeychainService.shared.set(stringValue, withKey: .test1)
-        EKKeychainService.shared.set(stringValue, withKey: .test2)
-        EKKeychainService.shared.set(boolValue, withKey: .bool)
-        EKKeychainService.shared.set(dataValue, withKey: .data)
+        try EKKeychainService.shared.set(stringValue, withKey: .test1)
+        try EKKeychainService.shared.set(stringValue, withKey: .test2)
+        try EKKeychainService.shared.set(boolValue, withKey: .bool)
+        try EKKeychainService.shared.set(dataValue, withKey: .data)
 
-
-
-        let new1 = EKKeychainService.shared.getString(withKey: .test1)
-        let new2 = EKKeychainService.shared.getString(withKey: .test2)
-        let new3 = EKKeychainService.shared.getBool(withKey: .bool)
-        let new4 = EKKeychainService.shared.getData(withKey: .data)
+        let new1: String = try EKKeychainService.shared.get(by: .test1)
+        let new2: String = try EKKeychainService.shared.get(by: .test2)
+        let new3: Bool = try EKKeychainService.shared.get(by: .bool)
+        let new4: Data = try EKKeychainService.shared.get(by: .data)
 
         XCTAssertNotNil(new1)
         XCTAssertNotNil(new2)
@@ -63,14 +69,48 @@ final class EKKeychainServiceTests: XCTestCase {
 
         EKKeychainService.shared.removeObjects(withKey: .test1, .test2, .bool, .data)
 
-        let value1 = EKKeychainService.shared.getString(withKey: .test1)
-        let value2 = EKKeychainService.shared.getString(withKey: .test2)
-        let value3 = EKKeychainService.shared.getBool(withKey: .bool)
-        let value4 = EKKeychainService.shared.getData(withKey: .data)
-
-        XCTAssertNil(value1)
-        XCTAssertNil(value2)
-        XCTAssertNil(value3)
-        XCTAssertNil(value4)
+        // 1
+        do {
+            let _: String = try EKKeychainService.shared.get(by: .test1)
+        }
+        catch {
+            XCTAssertEqual(
+                error as! EKKeychainService.EKKeychainError,
+                EKKeychainService.EKKeychainError.getEmpty
+            )
+        }
+        
+        // 2
+        do {
+            let _: String = try EKKeychainService.shared.get(by: .test2)
+        }
+        catch {
+            XCTAssertEqual(
+                error as! EKKeychainService.EKKeychainError,
+                EKKeychainService.EKKeychainError.getEmpty
+            )
+        }
+        
+        // 3
+        do {
+            let _: Bool = try EKKeychainService.shared.get(by: .bool)
+        }
+        catch {
+            XCTAssertEqual(
+                error as! EKKeychainService.EKKeychainError,
+                EKKeychainService.EKKeychainError.getEmpty
+            )
+        }
+        
+        // 4
+        do {
+            let _: Data = try EKKeychainService.shared.get(by: .data)
+        }
+        catch {
+            XCTAssertEqual(
+                error as! EKKeychainService.EKKeychainError,
+                EKKeychainService.EKKeychainError.getEmpty
+            )
+        }
     }
 }
