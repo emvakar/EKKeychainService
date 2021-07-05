@@ -2,7 +2,7 @@
   "object": {
     "pins": [
       {
-        "package": "keychain-swift",
+        "package": "KeychainSwift",
         "repositoryURL": "https://github.com/evgenyneu/keychain-swift.git",
         "state": {
           "branch": null,
